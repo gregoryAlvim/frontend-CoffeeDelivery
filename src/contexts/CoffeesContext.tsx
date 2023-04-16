@@ -2,7 +2,7 @@ import { createContext, ReactNode } from "react";
 import { Coffee, coffees } from "../data/coffees";
 
 interface CoffeeContextType {
-   data: Coffee[];
+   dataCoffees: Coffee[];
 }
 
 interface CoffeesContextProviderProps {
@@ -13,10 +13,10 @@ export const CoffeesContext = createContext({} as CoffeeContextType);
 
 export function CoffeesContextProvider({ children }: CoffeesContextProviderProps) {
 
-   const data = coffees;
+   const dataCoffees = coffees;
 
    return (
-      <CoffeesContext.Provider value={{data}}>
+      <CoffeesContext.Provider value={{dataCoffees}}>
         {children}
       </CoffeesContext.Provider>
     )
