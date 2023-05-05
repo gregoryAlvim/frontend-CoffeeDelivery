@@ -5,7 +5,7 @@ export const HeaderContainer = styled.header`
    align-items: center;
    justify-content: space-between;
 
-   padding: 3.2rem 0rem;
+   padding: 3.2rem 16rem;
 `;
 
 export const AddressAndShoppingCartContainer = styled.div`
