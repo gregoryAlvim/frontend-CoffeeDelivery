@@ -31,7 +31,7 @@ export const TextWithIconContainer = styled.div<IconComponenteColor>`
       justify-content: center;
       align-items: center;
 
-      padding: 0.8rem;
+      padding: 8px;
       border-radius: 1000px;
 
       background: ${({ theme, bgIconColor }) => theme[STATUS_COLORS[bgIconColor]]};
