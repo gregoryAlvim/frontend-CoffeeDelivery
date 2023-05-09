@@ -1,4 +1,14 @@
 import styled from "styled-components";
+import backgroundSlogan from "../../assets/gradientBackgroundIntro.png";
+import { rgba } from "polished";
+
+/*
+  Responsive Layouts
+  Phone: <= 600px
+  Tablet <= 768px
+  Notebook <= 992px
+  Normal Screen <= 1200px
+*/
 
 export const HomeContainer = styled.main`
   margin-top: 9.4rem;
@@ -8,6 +18,16 @@ export const SloganContainer = styled.aside`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: ${({ theme }) => `url(${backgroundSlogan}) no-repeat center,
+      linear-gradient(
+        0deg,
+        ${theme["white"]} 0%,
+        ${rgba(theme["background"], 0.2)} 50%,
+        ${theme["background"]} 100%
+      )`};
+  background-size: cover;
+  padding: 0 16rem;
+  height: 54.4rem;
   
   @media (max-width: 900px) {
     /* Estilos específicos para telas com largura de até 768 pixels */
@@ -82,4 +102,5 @@ export const DescriptionSloganItensContainer = styled.div`
 
 export const ShowcaseContainer = styled.section`
   /* Estilos gerais para a seção de showcase */
+  padding: 0 16rem;
 `;
