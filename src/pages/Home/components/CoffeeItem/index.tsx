@@ -11,6 +11,12 @@ export function CoffeeItem({id, title, description, price, tags, image, amount }
                <TagItem key={tag.id}>{tag.name}</TagItem>
             ))}
          </TagsContainer>
+
+         <span>{title}</span>
+
+         <p>{description}</p>
+
+
       </ItemContainer>
    )
 }
