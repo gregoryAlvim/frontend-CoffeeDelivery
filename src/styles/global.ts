@@ -20,7 +20,6 @@ export const GlobalStyle = createGlobalStyle`
       background: ${({ theme }) => theme['background']};
       /* color: ${({ theme }) => theme['gray-300']}; */
       -webkit-font-smoothing: antialiased;
-      padding: 0 16rem;
    }
 
    body, input, textarea, button {
