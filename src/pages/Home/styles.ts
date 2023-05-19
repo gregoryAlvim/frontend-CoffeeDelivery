@@ -2,14 +2,6 @@ import styled from "styled-components";
 import backgroundSlogan from "../../assets/gradientBackgroundIntro.png";
 import { rgba } from "polished";
 
-/*
-  Responsive Layouts
-  Phone: <= 600px
-  Tablet <= 768px
-  Notebook <= 992px
-  Normal Screen <= 1200px
-*/
-
 export const HomeContainer = styled.main`
   margin-top: 9.4rem;
 `;
