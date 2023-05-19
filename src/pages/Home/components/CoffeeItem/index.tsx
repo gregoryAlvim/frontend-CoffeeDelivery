@@ -1,5 +1,5 @@
 import { Coffee } from "../../../../data/coffees";
-import { ItemContainer, TagsContainer, TagItem } from "./styles";
+import { ItemContainer, TagsContainer, TagItem, PriceCartContainer, AmountItensContainer } from "./styles";
 
 export function CoffeeItem({id, title, description, price, tags, image, amount }: Coffee) {
    return (
@@ -16,7 +16,13 @@ export function CoffeeItem({id, title, description, price, tags, image, amount }
 
          <p>{description}</p>
 
+         <PriceCartContainer>
+            <p>R$ <span>{price.toFixed(2).toString().replace("." , ",")}</span></p>
 
+            <AmountItensContainer>
+               
+            </AmountItensContainer>
+         </PriceCartContainer>
       </ItemContainer>
    )
 }
