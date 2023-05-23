@@ -6,6 +6,14 @@ export const HeaderContainer = styled.header`
    justify-content: space-between;
 
    padding: 3.2rem 16rem;
+
+   @media (max-width: 1390px) {
+    padding: 3.2rem 10rem;
+   }
+  
+   @media (max-width: 768px) {
+
+   }
 `;
 
 export const AddressAndShoppingCartContainer = styled.div`
