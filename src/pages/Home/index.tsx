@@ -6,7 +6,7 @@ import { ShoppingCart, Package, Timer, Coffee } from '@phosphor-icons/react';
 
 import { CoffeesContext } from '../../contexts/CoffeesContext';
 import sloganCoffeeDelivery from '../../assets/sloganCoffeeDelivery.svg';
-import { DescriptionSloganContainer, DescriptionSloganItensContainer, HomeContainer, ShowcaseContainer, SloganContainer } from "./styles";
+import { CoffeesContainer, DescriptionSloganContainer, DescriptionSloganItensContainer, HomeContainer, ShowcaseContainer, SloganContainer } from "./styles";
 import { CoffeeItem } from './components/CoffeeItem';
 
 export function Home() {
@@ -54,19 +54,20 @@ export function Home() {
 
          <ShowcaseContainer>
             <h3>Nossos cafés</h3>
-
-            {dataCoffees.map((coffee) => (
-                  <CoffeeItem
-                     key={coffee.id}
-                     id={coffee.id}
-                     title={coffee.title}
-                     description={coffee.description}
-                     price={coffee.price}
-                     tags={coffee.tags}
-                     image={coffee.image}
-                     amount={coffee.amount}
-                  />
-            ))} 
+            <CoffeesContainer>
+               {dataCoffees.map((coffee) => (
+                     <CoffeeItem
+                        key={coffee.id}
+                        id={coffee.id}
+                        title={coffee.title}
+                        description={coffee.description}
+                        price={coffee.price}
+                        tags={coffee.tags}
+                        image={coffee.image}
+                        amount={coffee.amount}
+                     />
+               ))} 
+            </CoffeesContainer>
          </ShowcaseContainer>
       </ HomeContainer>
    );
