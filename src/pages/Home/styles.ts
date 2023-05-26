@@ -3,7 +3,7 @@ import backgroundSlogan from "../../assets/gradientBackgroundIntro.png";
 import { rgba } from "polished";
 
 export const HomeContainer = styled.main`
-  margin-top: 9.4rem;
+  margin-top: 9rem;
 `;
 
 export const SloganContainer = styled.aside`
@@ -18,12 +18,30 @@ export const SloganContainer = styled.aside`
         ${theme["background"]} 100%
       )`};
   background-size: cover;
+
   padding: 0 16rem;
   height: 54.4rem;
+
+  @media (max-width: 1390px) {
+    padding: 0 10rem;
+  }
+
+  @media (max-width: 1260px) {
+    display: grid;
+    justify-content: center;
+    position: relative;
+
+    img {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.3;
+    }
+  }
   
-  @media (max-width: 900px) {
-    /* Estilos específicos para telas com largura de até 768 pixels */
-    flex-direction: column;
+  @media (max-width: 768px) {
+
   }
 `;
 
@@ -53,31 +71,16 @@ export const DescriptionSloganContainer = styled.div`
     color: ${({ theme }) => theme['gray-700']}
   }
 
-  @media (max-width: 1360px) {
-    /* Estilos específicos para telas com largura de até 1360 pixels */
-    h1 {
-      height: 15rem;
-      line-height: 130%;
-      font-size: 4.3rem;
-    }
+  @media (max-width: 1390px) {
+    
   }
 
-  @media (max-width: 1200px) {
-    /* Estilos específicos para telas com largura de até 1360 pixels */
-    h1 {
-      height: 20rem;
-      font-size: 4rem;
-    }
+  @media (max-width: 1260px) {
+    z-index: 1;
   }
   
-  @media (max-width: 900px) {
-    /* Estilos específicos para telas com largura de até 900 pixels */
-    width: 100%;
-    text-align: center;
-
-    h1 {
-      height: 15rem;
-    }
+  @media (max-width: 768px) {
+    
   }
 `;
 
@@ -85,14 +88,53 @@ export const DescriptionSloganItensContainer = styled.div`
   display: grid;
   grid-template-columns: 3fr 4fr;
   gap: 2rem;
+  @media (max-width: 1390px) {
+    
+  }
+
+  @media (max-width: 1260px) {
+  
+  }
   
   @media (max-width: 768px) {
-    /* Estilos específicos para telas com largura de até 768 pixels */
     grid-template-columns: 1fr;
+    justify-content: center;
   }
 `;
 
 export const ShowcaseContainer = styled.section`
-  /* Estilos gerais para a seção de showcase */
   padding: 0 16rem;
+
+  h3 {
+    font-family: 'Baloo 2';
+    font-weight: 800;
+    font-size: 3.2rem;
+    line-height: 130%;
+    color: ${({ theme }) => theme['gray-700']};
+    margin-bottom: 5.4rem;
+  }
+
+  @media (max-width: 1390px) {
+    padding: 0 10rem;
+  }
+`;
+
+export const CoffeesContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  @media (max-width: 1390px) {
+  }
+
+  @media (max-width: 1260px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  @media (max-width: 768px) {
+    
+  }
 `;
