@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CurrencyDollar, MapPinLine } from "phosphor-react";
+
 import { FormPayment } from "./components/FormPayment";
 
-import { CurrencyDollar, MapPinLine, CreditCard, Money, Bank } from "phosphor-react";
-import { CheckoutMain, CheckoutContainer, CheckoutTitle, FormContainer, TextSpan, TextParagraph, InputForm } from "./styles";
+import { paymentMethods } from "../../data/paymentMethods";
+import { CheckoutMain, CheckoutContainer, CheckoutTitle, FormContainer, TextSpan, TextParagraph, InputForm, ResumeCoffeesContainer } from "./styles";
 
 const createOrderFormSchema = z.object({
    cep: z.string().nonempty('O cep é obrigatório').min(7, 'O cep está incompleto').max(8).transform(cep => cep.replace('-', '')),
@@ -14,20 +17,24 @@ const createOrderFormSchema = z.object({
    bairro: z.string().nonempty('O bairro é obrigatório'),
    cidade: z.string().nonempty('A cidade é obrigatório'),
    uf: z.string().nonempty('A UF é obrigatório'),
-   selectedFormPayment: z.string()
 })
 
 type CreateOrderFormData = z.infer<typeof createOrderFormSchema>
 
 export function Checkout() {
 
+   const [paymentMethodSelected, setPaymentMethodSelected] = useState('');
+
    const { register, handleSubmit, formState: { errors } } = useForm<CreateOrderFormData>({
       resolver: zodResolver(createOrderFormSchema)
    });
 
-   function orderData(data: any) {
-      console.log(data);
-      console.log(errors);
+   function handleChangePaymentMethods(selectedPaymentMethod: string) {
+      setPaymentMethodSelected(selectedPaymentMethod)
+   }
+
+   function orderData(addressData: CreateOrderFormData) {
+      console.log({ addressData, paymentMethodSelected });
    }
 
    return (
@@ -42,7 +49,7 @@ export function Checkout() {
                      <TextSpan>Endereço de Entrega</TextSpan>
                      <TextParagraph>Informe o endereço onde deseja receber seu pedido</TextParagraph>
                   </CheckoutContainer>
-                  
+
                   <div className="formInputsAddressContainer">
                      <InputForm
                         gridArea="cep"
@@ -68,7 +75,7 @@ export function Checkout() {
                         {...register("complemento")}
                         placeholder="Complemento"
                      />
-                     
+
                      <InputForm
                         gridArea="bairro"
                         {...register("bairro", { required: true })}
@@ -87,7 +94,6 @@ export function Checkout() {
                         placeholder={errors.uf ? `${errors.uf.message}` : 'UF'}
                      />
                   </div>
-                  <button type="submit">teste</button>
                </FormContainer>
 
                <FormContainer className="formSelectPayment">
@@ -98,9 +104,17 @@ export function Checkout() {
                   </CheckoutContainer>
 
                   <div className="formInputsPaymentContainer">
-                     <FormPayment {...register("selectedFormPayment")} name="CARTÃO DE CREDITO" icon={CreditCard}></FormPayment>
-                     <FormPayment name="CARTÃO DE DÉBITO" icon={Bank}></FormPayment>
-                     <FormPayment name="DINHEIRO" icon={Money}></FormPayment>
+                     {
+                        paymentMethods && paymentMethods.map(paymentMethod => (
+                           <FormPayment
+                              active={paymentMethod.description === paymentMethodSelected}
+                              onClick={() => handleChangePaymentMethods(paymentMethod.description)}
+                              key={paymentMethod.id}
+                              icon={paymentMethod.icon}
+                              name={paymentMethod.description}
+                           ></FormPayment>
+                        ))
+                     }
                   </div>
                </FormContainer>
             </form>
@@ -109,7 +123,10 @@ export function Checkout() {
 
          <CheckoutContainer className="secondContainer">
             <CheckoutTitle>Cafés selecionados</CheckoutTitle>
+            
+            <ResumeCoffeesContainer>
 
+            </ResumeCoffeesContainer>
          </CheckoutContainer>
       </CheckoutMain>
    );
