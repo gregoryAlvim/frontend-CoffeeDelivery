@@ -41,12 +41,15 @@ export const SloganContainer = styled.aside`
   }
   
   @media (max-width: 768px) {
-
+    img {
+      top: 25%;
+      max-width: 90%;
+    }
   }
 `;
 
 export const DescriptionSloganContainer = styled.div`
-  width: 58.8rem;
+  max-width: 58.8rem;
   
   h1 {
     height: 12.4rem;
@@ -71,16 +74,17 @@ export const DescriptionSloganContainer = styled.div`
     color: ${({ theme }) => theme['gray-700']}
   }
 
-  @media (max-width: 1390px) {
-    
-  }
-
   @media (max-width: 1260px) {
     z-index: 1;
   }
   
   @media (max-width: 768px) {
-    
+    min-width: 38rem;
+    padding: 0 2rem;
+
+    h1 {
+      font-size: 3.2rem;
+    }
   }
 `;
 
@@ -88,13 +92,6 @@ export const DescriptionSloganItensContainer = styled.div`
   display: grid;
   grid-template-columns: 3fr 4fr;
   gap: 2rem;
-  @media (max-width: 1390px) {
-    
-  }
-
-  @media (max-width: 1260px) {
-  
-  }
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -117,14 +114,15 @@ export const ShowcaseContainer = styled.section`
   @media (max-width: 1390px) {
     padding: 0 10rem;
   }
+  
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export const CoffeesContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-
-  @media (max-width: 1390px) {
-  }
 
   @media (max-width: 1260px) {
     grid-template-columns: 1fr 1fr 1fr;
@@ -135,6 +133,8 @@ export const CoffeesContainer = styled.div`
   }
   
   @media (max-width: 768px) {
-    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
