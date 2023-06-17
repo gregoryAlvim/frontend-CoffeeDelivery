@@ -15,9 +15,6 @@ const initialState: CartState = {
   itemId: null,
 }
 
-export const initializer = (initialValue = initialState) =>
-  getStorageItem(CART_KEY) || initialValue
-
 export function cartReducer(state: CartState, action: any) {
   switch (action.type) {
     case ActionTypes.ADD_NEW_ITEM: {
