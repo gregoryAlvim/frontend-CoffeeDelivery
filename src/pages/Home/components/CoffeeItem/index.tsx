@@ -1,33 +1,78 @@
-import { Coffee } from "../../../../data/coffees";
-import { Plus, Minus, ShoppingCart } from "phosphor-react";
-import { ItemContainer, TagsContainer, TagItem, PriceCartContainer, AmountItensContainer } from "./styles";
+import { useContext } from 'react'
+import { Coffee } from '../../../../@types/mockes'
+import { Plus, Minus, ShoppingCart } from 'phosphor-react'
+import { CartContext } from '../../../../contexts/CartContext'
+import { useCoffee } from '../../../../contexts/CoffeesContext'
 
-export function CoffeeItem({id, title, description, price, tags, image, amount }: Coffee) {
-   return (
-      <ItemContainer>
-         <img src={image} alt="" />
+import {
+  ItemContainer,
+  TagsContainer,
+  TagItem,
+  PriceCartContainer,
+  AmountItensContainer,
+} from './styles'
 
-         <TagsContainer>
-            {tags.map(tag => (
-               <TagItem key={tag.id}>{tag.name}</TagItem>
-            ))}
-         </TagsContainer>
+export function CoffeeItem({ ...coffee }: Coffee) {
+  const { handleUpdateCoffeeAmount } = useCoffee()
+  const { addToCart } = useContext(CartContext)
 
-         <span>{title}</span>
+  function handleUpdateAmount(type: 'add' | 'remove', coffeeId: number) {
+    handleUpdateCoffeeAmount(type, coffeeId)
+  }
 
-         <p>{description}</p>
+  function handleCreateNewItem(cartItem: Coffee) {
+    addToCart()
+  }
 
-         <PriceCartContainer>
-            <p>R$ <span>{price.toFixed(2).toString().replace("." , ",")}</span></p>
+  const accumulatorTotalItem = coffee.total || coffee.price
 
-            <AmountItensContainer>
-               <Minus className="minusAndPlus" size={14} weight="bold" />
-               <span>1</span>
-               <Plus className="minusAndPlus" size={14} weight="bold" />
-            </AmountItensContainer>
+  return (
+    <ItemContainer>
+      <img src={coffee.image} alt="a" />
 
-            <ShoppingCart className="shoppingCart" size={38} weight="fill" />
-         </PriceCartContainer>
-      </ItemContainer>
-   )
+      <TagsContainer>
+        {coffee.tags.map((tag) => (
+          <TagItem key={tag.id}>{tag.name}</TagItem>
+        ))}
+      </TagsContainer>
+
+      <span>{coffee.title}</span>
+
+      <p>{coffee.description}</p>
+
+      <PriceCartContainer>
+        <p>
+          R${' '}
+          <span>
+            {accumulatorTotalItem?.toFixed(2).toString().replace('.', ',')}
+          </span>
+        </p>
+
+        <AmountItensContainer>
+          <Minus
+            onClick={() =>
+              coffee.amount > 0 && handleUpdateAmount('remove', coffee.id)
+            }
+            className="minusAndPlus"
+            size={14}
+            weight="bold"
+          />
+          <span>{coffee.amount}</span>
+          <Plus
+            onClick={() => handleUpdateAmount('add', coffee.id)}
+            className="minusAndPlus"
+            size={14}
+            weight="bold"
+          />
+        </AmountItensContainer>
+
+        <ShoppingCart
+          onClick={() => handleCreateNewItem(coffee)}
+          className="shoppingCart"
+          size={38}
+          weight="fill"
+        />
+      </PriceCartContainer>
+    </ItemContainer>
+  )
 }
