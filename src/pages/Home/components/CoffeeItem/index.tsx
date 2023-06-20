@@ -1,7 +1,6 @@
-import { useContext } from 'react'
 import { Coffee } from '../../../../@types/mockes'
 import { Plus, Minus, ShoppingCart } from 'phosphor-react'
-import { CartContext } from '../../../../contexts/CartContext'
+import { useCart } from '../../../../contexts/CartContext'
 import { useCoffee } from '../../../../contexts/CoffeesContext'
 
 import {
@@ -14,14 +13,14 @@ import {
 
 export function CoffeeItem({ ...coffee }: Coffee) {
   const { handleUpdateCoffeeAmount } = useCoffee()
-  const { addToCart } = useContext(CartContext)
+  const { addToCart } = useCart()
 
   function handleUpdateAmount(type: 'add' | 'remove', coffeeId: number) {
     handleUpdateCoffeeAmount(type, coffeeId)
   }
 
   function handleCreateNewItem(cartItem: Coffee) {
-    addToCart()
+    addToCart(cartItem)
   }
 
   const accumulatorTotalItem = coffee.total || coffee.price
