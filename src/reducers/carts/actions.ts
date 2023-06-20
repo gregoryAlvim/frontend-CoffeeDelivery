@@ -4,6 +4,7 @@ export enum ActionTypes {
   ADD_NEW_ITEM = 'ADD_NEW_ITEM',
   UPDATE_ITEM = 'UPDATE_ITEM',
   DELETE_ITEM = 'DELETE_ITEM',
+  CLEAN_ITEMS = 'CLEAN_ITEMS',
 }
 
 export function addNewItemAction(newItem: Cart) {
@@ -32,5 +33,12 @@ export function deleteItemAction(newItem: Cart) {
     payload: {
       newItem,
     },
+  }
+}
+
+export function cleanItemAction() {
+  return {
+    type: ActionTypes.CLEAN_ITEMS,
+    payload: {},
   }
 }
