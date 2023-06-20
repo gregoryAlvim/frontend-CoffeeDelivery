@@ -7,6 +7,10 @@ export const HeaderContainer = styled.header`
 
   padding: 3.2rem 16rem;
 
+  img {
+    cursor: pointer;
+  }
+
   @media (max-width: 1390px) {
     padding: 3.2rem 10rem;
   }
@@ -25,6 +29,7 @@ export const AddressAndShoppingCartContainer = styled.div`
     height: 3.8rem;
     padding: 0.8rem;
     border-radius: 6px;
+    position: relative;
 
     background: ${({ theme }) => theme['yellow-100']};
     border: none;
