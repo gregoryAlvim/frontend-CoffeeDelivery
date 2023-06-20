@@ -33,11 +33,13 @@ Por fim, ele exibe a página de sucesso com o resumo do pedido que foi concluíd
 ## Features
 
 - [x] Setup Vite
-- [x] Formulario com nome da tarefa e duração do ciclo.
-- [x] Botão começar bloqueado se nome e duração não estiverem preenchidos.
-- [x] Timer no título da página.
-- [x] Histórico com informações dos ciclos.
-- [x] Salvar ciclos no localstorage. 
+- [x] Cátalogo dos cafés.
+- [x] Ajustar quantidade de cafés que deseja adicionar ao carinho.
+- [x] Adicionar café no carinho.
+- [x] Formulário do endereço.
+- [x] Validação do formulário.
+- [x] Ajustar pedido na página de checkout.
+- [x] Página de sucesso do pedido. 
 
 <br/>
 
