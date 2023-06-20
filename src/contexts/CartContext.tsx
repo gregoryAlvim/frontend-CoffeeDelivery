@@ -1,19 +1,27 @@
-import { createContext, ReactNode, useEffect, useReducer } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react'
 import { Cart, Coffee } from '../@types/mockes'
-import { APP_KEY } from '../utils/localStorage'
-import { CART_KEY, cartReducer } from '../reducers/carts/reducers'
+import { CART_KEY, cartReducer, initializer } from '../reducers/carts/reducers'
 import {
   addNewItemAction,
+  cleanItemAction,
   deleteItemAction,
   updateItemAction,
 } from '../reducers/carts/actions'
 import { toast } from 'react-toastify'
+import { setStorageItem } from '../utils/localStorage'
 
 interface CartContextType {
   items: Cart[]
   addToCart: (data: Coffee) => void
   removeFromCart: (data: Cart) => void
   updateCoffeeAmountFromCart: (type: 'add' | 'remove', coffeeId: number) => void
+  clearCart: () => void
   cartTotal: number
   cartSubTotal: number
   freight: number
@@ -31,45 +39,37 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   const [cartState, dispatch] = useReducer(
     cartReducer,
     { items: [], itemId: null },
-    (initialState) => {
-      const storedStateAsJSON = localStorage.getItem(`@${APP_KEY}:${CART_KEY}`)
-
-      if (storedStateAsJSON) {
-        return JSON.parse(storedStateAsJSON)
-      }
-
-      return initialState
-    },
+    initializer,
   )
 
   const { items } = cartState
 
   useEffect(() => {
-    const stateJSON = JSON.stringify(cartState)
-    localStorage.setItem(`@${APP_KEY}:${CART_KEY}`, stateJSON)
+    setStorageItem(CART_KEY, cartState)
   }, [cartState])
 
   function addToCart(data: Coffee) {
-    console.log(data)
     const hasItemOnCart = items.some((item) => {
       return item.id === data.id
     })
-    console.log(hasItemOnCart)
+
     if (hasItemOnCart) {
       dispatch(updateItemAction('add', data.id))
+      toast.success('Item adicionado ao carrinho')
       return
     }
 
     const newItem: Cart = {
       id: data.id,
-      title: data.description,
-      amount: 1,
+      title: data.title,
+      amount: data.amount,
       price: data.price,
-      img: data.image,
+      image: data.image,
       total: data.total,
     }
-    console.log(newItem)
+
     dispatch(addNewItemAction(newItem))
+    toast.success('Item adicionado ao carrinho')
   }
 
   function updateCoffeeAmountFromCart(
@@ -81,6 +81,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
   function removeFromCart(newItem: Cart) {
     dispatch(deleteItemAction(newItem))
+  }
+
+  function clearCart() {
+    dispatch(cleanItemAction())
   }
 
   const cartSubTotal = items.reduce(
@@ -99,6 +103,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         addToCart,
         updateCoffeeAmountFromCart,
         removeFromCart,
+        clearCart,
         cartTotal,
         cartSubTotal,
         freight,
@@ -107,4 +112,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
       {children}
     </CartContext.Provider>
   )
+}
+
+export function useCart() {
+  const context = useContext(CartContext)
+
+  return context
 }
