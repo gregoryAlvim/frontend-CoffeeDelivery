@@ -15,6 +15,9 @@ const initialState: CartState = {
   itemId: null,
 }
 
+export const initializer = (initialValue = initialState) =>
+  getStorageItem(CART_KEY) || initialValue
+
 export function cartReducer(state: CartState, action: any) {
   switch (action.type) {
     case ActionTypes.ADD_NEW_ITEM: {
@@ -52,11 +55,15 @@ export function cartReducer(state: CartState, action: any) {
     }
 
     case ActionTypes.DELETE_ITEM: {
-      const currentItemIndex = state.items.indexOf(action.payload.newItem.id)
+      const currentItemIndex = state.items.indexOf(action.payload.newItem)
 
       return produce(state, (draft) => {
         draft.items.splice(currentItemIndex, 1)
       })
+    }
+
+    case ActionTypes.CLEAN_ITEMS: {
+      return initialState
     }
 
     default:
